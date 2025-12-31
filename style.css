@@ -32,12 +32,18 @@ body {
 
 /* กรอบอยู่นอกภาพจริง */
 .frame {
-  background: #fff;
-  padding: 22px; /* กรอบอยู่นอก */
+  position: relative;
+  transform-origin: center;
+}
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: -22px; /* ความหนากรอบ */
+  background: white;
+  z-index: -1;
   box-shadow:
     0 20px 40px rgba(0,0,0,.25),
     0 0 0 1px rgba(255,255,255,.8);
-  transform-origin: center;
 }
 
 /* เอียงแบบศิลปะ */
