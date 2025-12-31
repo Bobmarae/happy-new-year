@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>Happy New Year</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<title>Happy New Year</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- overlay สำหรับเริ่มเพลง -->
-<div class="overlay" id="start"></div>
+<!-- overlay -->
+<div id="overlay">แตะหน้าจอ 🎆</div>
 
 <audio id="bgm" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
-  <div class="frame">
-    <img src="img1.jpg" alt="">
-  </div>
-
-  <div class="frame">
-    <img src="img2.jpg" alt="">
-  </div>
+  <div class="frame"><img src="img1.jpg"></div>
+  <div class="frame"><img src="img2.jpg"></div>
 </div>
+
+<div id="flowers"></div>
+<div id="fireworks"></div>
 
 <script src="script.js"></script>
 </body>
