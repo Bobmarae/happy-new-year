@@ -28,6 +28,15 @@ start.addEventListener("click", () => {
     h.style.left = Math.random() * 100 + "vw";
     hearts.appendChild(h);
 
+    const start = document.getElementById("start");
+const audio = document.getElementById("bgm");
+
+start.addEventListener("click", () => {
+  start.style.display = "none";
+  audio.play();
+});
+
+
     setTimeout(() => h.remove(), 6000);
   }, 400);
 });
