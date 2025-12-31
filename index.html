@@ -6,69 +6,121 @@
   <title>Happy New Year ❤️</title>
   <style>
     body{
-      margin:0; font-family:'Segoe UI',sans-serif;
-      background:radial-gradient(circle at top,#ffb6c1,#ff7eb3);
-      min-height:100vh; color:#fff; overflow:hidden;
+      margin:0;
+      font-family:'Segoe UI',sans-serif;
+      background:linear-gradient(180deg,#ff9a9e,#fad0c4);
+      min-height:100vh;
+      color:#fff;
+      overflow:hidden;
     }
 
-    /* ให้คลิกได้ทั้งจอ ป้องกันบัคคลิกไม่โดน */
+    /* คลิกได้ทั้งจอ */
     .overlay{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
     }
 
-    .container{ text-align:center; }
+    .card{
+      max-width:420px;
+      width:100%;
+      text-align:center;
+    }
 
-    .hint{ font-size:1.2rem; animation:blink 1.5s infinite; }
+    .hint{
+      font-size:1.2rem;
+      margin-top:10px;
+      animation:blink 1.5s infinite;
+    }
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
 
     /* bouquet */
-    .bouquet{ position:relative; width:220px; height:200px; margin:0 auto 10px; }
+    .bouquet{
+      position:relative;
+      width:200px;
+      height:180px;
+      margin:0 auto 10px;
+    }
     .flower{
-      position:absolute; width:60px; height:60px;
+      position:absolute;
+      width:60px;
+      height:60px;
       background:radial-gradient(circle,#fff 30%,#ff69b4 70%);
-      border-radius:50%; transform:scale(0);
+      border-radius:50%;
+      transform:scale(0);
       transition:transform .8s ease;
     }
-    .flower:nth-child(1){top:80px;left:80px;transition-delay:.2s}
-    .flower:nth-child(2){top:40px;left:40px;transition-delay:.5s}
-    .flower:nth-child(3){top:40px;left:120px;transition-delay:.8s}
-    .flower:nth-child(4){top:0;left:80px;transition-delay:1.1s}
-    .open .flower{ transform:scale(1); }
+    .flower:nth-child(1){top:80px;left:70px;transition-delay:.2s}
+    .flower:nth-child(2){top:40px;left:30px;transition-delay:.5s}
+    .flower:nth-child(3){top:40px;left:110px;transition-delay:.8s}
+    .flower:nth-child(4){top:0;left:70px;transition-delay:1.1s}
+    .open .flower{transform:scale(1)}
 
-    /* hearts */
-    .heart{ position:fixed; bottom:-30px; animation:floatUp 4s linear forwards; }
-    @keyframes floatUp{from{transform:translateY(0);opacity:1}to{transform:translateY(-120vh);opacity:0}}
-
-    /* fireworks */
-    .firework{ position:fixed; width:6px; height:6px; background:gold; border-radius:50%; animation:explode 1.5s ease-out forwards }
-    @keyframes explode{0%{transform:scale(0);opacity:1}100%{transform:scale(6);opacity:0}}
-
+    /* message */
     .message{
-      display:none; font-family:'Comic Sans MS',cursive; max-width:320px;
-      margin:15px auto; line-height:1.6; animation:fadeIn 1.2s ease forwards;
+      display:none;
+      font-family:'Comic Sans MS',cursive;
+      font-size:1.05rem;
+      line-height:1.6;
+      margin:15px auto 20px;
+      animation:fadeIn 1.2s ease forwards;
     }
     @keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
 
-    .images{ display:none; gap:15px; justify-content:center; flex-wrap:wrap; margin-top:10px }
-    .images img{ max-width:160px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,.3) }
+    /* images */
+    .images{
+      display:none;
+      gap:20px;
+      flex-direction:column;
+      align-items:center;
+    }
+    .images img{
+      width:100%;
+      max-width:100%;
+      height:auto;            /* ขนาดเท่าไฟล์ต้นฉบับ */
+      border-radius:12px;
+      border:6px solid #fff;  /* กรอบขาว */
+      box-shadow:0 15px 40px rgba(0,0,0,.35);
+      animation:fadeIn 1.2s ease forwards;
+    }
 
-    .open .message{ display:block }
-    .open .images{ display:flex }
+    .open .message,
+    .open .images{display:flex}
 
-    iframe{ display:none }
-    .open iframe{ display:block; margin:15px auto 0; border-radius:12px }
+    /* hearts */
+    .heart{
+      position:fixed;
+      bottom:-30px;
+      animation:floatUp 4s linear forwards;
+    }
+    @keyframes floatUp{from{transform:translateY(0);opacity:1}to{transform:translateY(-120vh);opacity:0}}
+
+    /* fireworks */
+    .firework{
+      position:fixed;
+      width:6px;
+      height:6px;
+      background:gold;
+      border-radius:50%;
+      animation:explode 1.5s ease-out forwards;
+    }
+    @keyframes explode{0%{transform:scale(0);opacity:1}100%{transform:scale(6);opacity:0}}
   </style>
 </head>
 <body>
-  <!-- overlay รับคลิกทั้งจอ แก้บัคคลิกไม่ติด -->
   <div class="overlay" id="overlay">
-    <div class="container" id="card">
+    <div class="card" id="card">
+
       <div class="bouquet">
         <div class="flower"></div>
         <div class="flower"></div>
         <div class="flower"></div>
         <div class="flower"></div>
       </div>
+
       <div class="hint" id="hint">แตะหน้าจอ 🌸</div>
 
       <div class="message">
@@ -86,9 +138,6 @@
         <img src="b031c462-e0e3-4711-aac2-60bb40bbaee6.png">
       </div>
 
-      <iframe width="300" height="170"
-        src="https://www.youtube.com/embed/azVCm-lyXMM?autoplay=1&mute=1"
-        allow="autoplay; encrypted-media"></iframe>
     </div>
   </div>
 
@@ -99,21 +148,30 @@
     let started=false;
 
     function heart(){
-      const h=document.createElement('div'); h.className='heart'; h.textContent='❤️';
-      h.style.left=Math.random()*100+'vw'; h.style.fontSize=(16+Math.random()*20)+'px';
-      document.body.appendChild(h); setTimeout(()=>h.remove(),4000);
+      const h=document.createElement('div');
+      h.className='heart';
+      h.textContent='❤️';
+      h.style.left=Math.random()*100+'vw';
+      h.style.fontSize=(16+Math.random()*20)+'px';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),4000);
     }
     function firework(){
-      const f=document.createElement('div'); f.className='firework';
-      f.style.left=Math.random()*100+'vw'; f.style.top=Math.random()*60+'vh';
-      document.body.appendChild(f); setTimeout(()=>f.remove(),1500);
+      const f=document.createElement('div');
+      f.className='firework';
+      f.style.left=Math.random()*100+'vw';
+      f.style.top=Math.random()*60+'vh';
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),1500);
     }
 
     overlay.addEventListener('click',()=>{
-      if(started) return; started=true;
-      card.classList.add('open'); hint.style.display='none';
-      const iframe=card.querySelector('iframe'); iframe.src=iframe.src.replace('mute=1','mute=0');
-      setInterval(heart,500); setInterval(firework,1200);
+      if(started) return;
+      started=true;
+      card.classList.add('open');
+      hint.style.display='none';
+      setInterval(heart,600);
+      setInterval(firework,1400);
     });
   </script>
 </body>
