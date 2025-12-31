@@ -8,56 +8,107 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      background: radial-gradient(circle at top, #ffb6c1, #ff7eb3);
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
       text-align: center;
+      overflow: hidden;
     }
-    .card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      max-width: 400px;
+    .container {
+      cursor: pointer;
     }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-    .heart {
-      font-size: 3rem;
-      margin: 20px 0;
-      animation: beat 1.2s infinite;
-    }
-    @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
-    footer {
-      margin-top: 20px;
-      font-size: 0.9rem;
+    .hint {
+      font-size: 1.2rem;
       opacity: 0.9;
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink {
+      0%,100%{opacity:1}
+      50%{opacity:0.4}
+    }
+    .bouquet {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 20px;
+      position: relative;
+    }
+    .flower {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: pink;
+      border-radius: 50%;
+      top: 60px;
+      left: 60px;
+      transform: scale(0);
+      transition: transform 1s ease;
+    }
+    .open .flower {
+      transform: scale(1);
+    }
+    .images {
+      display: none;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .images img {
+      max-width: 160px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: fadeIn 1.5s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(20px);} 
+      to {opacity:1; transform: translateY(0);} 
+    }
+    .open .images {
+      display: flex;
+    }
+    iframe {
+      display: none;
+    }
+    .open iframe {
+      display: block;
+      margin: 20px auto 0;
+      border-radius: 12px;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Happy New Year 🎉</h1>
-    <p>
-      สุขสันต์ปีใหม่นะที่รัก 💕<br />
-      ขอบคุณที่อยู่ข้างกันตลอดปีที่ผ่านมา<br />
-      ปีนี้ขอให้เราได้ยิ้มไปด้วยกันอีกเยอะ ๆ
-    </p>
-    <div class="heart">❤️</div>
-    <footer>— จากแฟนที่รักเธอที่สุด</footer>
+  <div class="container" id="card">
+    <div class="bouquet">
+      <div class="flower"></div>
+    </div>
+    <div class="hint" id="hint">แตะหน้าจอ 🌸</div>
+
+    <div class="images">
+      <img src="1189a3d9-5100-481b-bc69-db8bc57ce9d9.png" alt="memory1" />
+      <img src="b031c462-e0e3-4711-aac2-60bb40bbaee6.png" alt="memory2" />
+    </div>
+
+    <iframe width="300" height="170"
+      src="https://www.youtube.com/embed/azVCm-lyXMM?autoplay=1&mute=1"
+      allow="autoplay; encrypted-media">
+    </iframe>
   </div>
+
+  <script>
+    const card = document.getElementById('card');
+    const hint = document.getElementById('hint');
+
+    card.addEventListener('click', () => {
+      card.classList.add('open');
+      hint.style.display = 'none';
+
+      // unmute after interaction
+      const iframe = card.querySelector('iframe');
+      iframe.src = iframe.src.replace('mute=1', 'mute=0');
+    });
+  </script>
 </body>
 </html>
