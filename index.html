@@ -1,5 +1,3 @@
-<!-- update: force redeploy -->
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -7,183 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy New Year ❤️</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #ffb6c1, #ff7eb3);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      text-align: center;
-      overflow: hidden;
+    body{
+      margin:0; font-family:'Segoe UI',sans-serif;
+      background:radial-gradient(circle at top,#ffb6c1,#ff7eb3);
+      min-height:100vh; color:#fff; overflow:hidden;
     }
 
-    .container { cursor: pointer; }
+    /* ให้คลิกได้ทั้งจอ ป้องกันบัคคลิกไม่โดน */
+    .overlay{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    }
 
-    .hint {
-      font-size: 1.2rem;
-      animation: blink 1.5s infinite;
-    }
-    @keyframes blink {
-      0%,100%{opacity:1}
-      50%{opacity:0.4}
-    }
+    .container{ text-align:center; }
+
+    .hint{ font-size:1.2rem; animation:blink 1.5s infinite; }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
 
     /* bouquet */
-    .bouquet {
-      position: relative;
-      width: 220px;
-      height: 200px;
-      margin: auto;
+    .bouquet{ position:relative; width:220px; height:200px; margin:0 auto 10px; }
+    .flower{
+      position:absolute; width:60px; height:60px;
+      background:radial-gradient(circle,#fff 30%,#ff69b4 70%);
+      border-radius:50%; transform:scale(0);
+      transition:transform .8s ease;
     }
-
-    .flower {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle, #fff 30%, #ff69b4 70%);
-      border-radius: 50%;
-      transform: scale(0);
-      transition: transform 0.8s ease;
-    }
-
-    .flower:nth-child(1){ top:80px; left:80px; transition-delay:0.2s; }
-    .flower:nth-child(2){ top:40px; left:40px; transition-delay:0.5s; }
-    .flower:nth-child(3){ top:40px; left:120px; transition-delay:0.8s; }
-    .flower:nth-child(4){ top:0px; left:80px; transition-delay:1.1s; }
-
-    .open .flower { transform: scale(1); }
+    .flower:nth-child(1){top:80px;left:80px;transition-delay:.2s}
+    .flower:nth-child(2){top:40px;left:40px;transition-delay:.5s}
+    .flower:nth-child(3){top:40px;left:120px;transition-delay:.8s}
+    .flower:nth-child(4){top:0;left:80px;transition-delay:1.1s}
+    .open .flower{ transform:scale(1); }
 
     /* hearts */
-    .heart {
-      position: absolute;
-      color: #ff2f92;
-      font-size: 20px;
-      animation: floatUp 4s linear infinite;
-    }
-    @keyframes floatUp {
-      from { transform: translateY(0); opacity:1; }
-      to { transform: translateY(-120vh); opacity:0; }
-    }
+    .heart{ position:fixed; bottom:-30px; animation:floatUp 4s linear forwards; }
+    @keyframes floatUp{from{transform:translateY(0);opacity:1}to{transform:translateY(-120vh);opacity:0}}
 
     /* fireworks */
-    .firework {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: gold;
-      border-radius: 50%;
-      animation: explode 1.5s ease-out infinite;
-    }
-    @keyframes explode {
-      0% { transform: scale(0); opacity:1; }
-      100% { transform: scale(6); opacity:0; }
-    }
+    .firework{ position:fixed; width:6px; height:6px; background:gold; border-radius:50%; animation:explode 1.5s ease-out forwards }
+    @keyframes explode{0%{transform:scale(0);opacity:1}100%{transform:scale(6);opacity:0}}
 
-    /* message */
-    .message {
-      display:none;
-      font-family: 'Comic Sans MS', cursive;
-      font-size: 1.1rem;
-      max-width: 320px;
-      margin: 20px auto;
-      line-height: 1.6;
-      animation: fadeIn 2s ease forwards;
+    .message{
+      display:none; font-family:'Comic Sans MS',cursive; max-width:320px;
+      margin:15px auto; line-height:1.6; animation:fadeIn 1.2s ease forwards;
     }
+    @keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
 
-    @keyframes fadeIn {
-      from {opacity:0; transform: translateY(20px);} 
-      to {opacity:1; transform: translateY(0);} 
-    }
+    .images{ display:none; gap:15px; justify-content:center; flex-wrap:wrap; margin-top:10px }
+    .images img{ max-width:160px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,.3) }
 
-    .images {
-      display:none;
-      gap:15px;
-      justify-content:center;
-      margin-top:20px;
-      flex-wrap:wrap;
-    }
+    .open .message{ display:block }
+    .open .images{ display:flex }
 
-    .images img{
-      max-width:160px;
-      border-radius:15px;
-      box-shadow:0 10px 30px rgba(0,0,0,.3);
-    }
-
-    .open .images, .open .message { display:flex; }
-
-    iframe{ display:none; }
-    .open iframe{ display:block; margin:20px auto; border-radius:12px; }
+    iframe{ display:none }
+    .open iframe{ display:block; margin:15px auto 0; border-radius:12px }
   </style>
 </head>
 <body>
-  <div class="container" id="card">
-    <div class="bouquet">
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="flower"></div>
-      <div class="flower"></div>
+  <!-- overlay รับคลิกทั้งจอ แก้บัคคลิกไม่ติด -->
+  <div class="overlay" id="overlay">
+    <div class="container" id="card">
+      <div class="bouquet">
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+      </div>
+      <div class="hint" id="hint">แตะหน้าจอ 🌸</div>
+
+      <div class="message">
+        Thank you for coming into my life.<br>
+        You are actually making me smile and laugh.<br>
+        Thank you for your understanding.<br>
+        Thank you for being my biggest supporter<br>
+        and thank you for caring about me.<br>
+        I really appreciate you so much.<br><br>
+        <b>I love you a lot ❤️</b>
+      </div>
+
+      <div class="images">
+        <img src="1189a3d9-5100-481b-bc69-db8bc57ce9d9.png">
+        <img src="b031c462-e0e3-4711-aac2-60bb40bbaee6.png">
+      </div>
+
+      <iframe width="300" height="170"
+        src="https://www.youtube.com/embed/azVCm-lyXMM?autoplay=1&mute=1"
+        allow="autoplay; encrypted-media"></iframe>
     </div>
-
-    <div class="hint" id="hint">แตะหน้าจอ 🌸</div>
-
-    <div class="message">
-      Thank you for coming into my life.<br>
-      You are actually making me smile and laugh.<br>
-      Thank you for your understanding.<br>
-      Thank you for being my biggest supporter<br>
-      and thank you for caring about me.<br>
-      I really appreciate you so much.<br><br>
-      <b>I love you a lot ❤️</b>
-    </div>
-
-    <div class="images">
-      <img src="1189a3d9-5100-481b-bc69-db8bc57ce9d9.png">
-      <img src="b031c462-e0e3-4711-aac2-60bb40bbaee6.png">
-    </div>
-
-    <iframe width="300" height="170"
-      src="https://www.youtube.com/embed/azVCm-lyXMM?autoplay=1&mute=1"
-      allow="autoplay; encrypted-media">
-    </iframe>
   </div>
 
   <script>
-    const card = document.getElementById('card');
-    const hint = document.getElementById('hint');
+    const overlay=document.getElementById('overlay');
+    const card=document.getElementById('card');
+    const hint=document.getElementById('hint');
+    let started=false;
 
-    function createHeart(){
-      const h = document.createElement('div');
-      h.className='heart';
-      h.innerHTML='❤️';
-      h.style.left=Math.random()*100+'vw';
-      h.style.bottom='-20px';
-      h.style.fontSize=(16+Math.random()*20)+'px';
-      document.body.appendChild(h);
-      setTimeout(()=>h.remove(),4000);
+    function heart(){
+      const h=document.createElement('div'); h.className='heart'; h.textContent='❤️';
+      h.style.left=Math.random()*100+'vw'; h.style.fontSize=(16+Math.random()*20)+'px';
+      document.body.appendChild(h); setTimeout(()=>h.remove(),4000);
+    }
+    function firework(){
+      const f=document.createElement('div'); f.className='firework';
+      f.style.left=Math.random()*100+'vw'; f.style.top=Math.random()*60+'vh';
+      document.body.appendChild(f); setTimeout(()=>f.remove(),1500);
     }
 
-    function createFirework(){
-      const f=document.createElement('div');
-      f.className='firework';
-      f.style.left=Math.random()*100+'vw';
-      f.style.top=Math.random()*60+'vh';
-      document.body.appendChild(f);
-      setTimeout(()=>f.remove(),1500);
-    }
-
-    card.addEventListener('click',()=>{
-      card.classList.add('open');
-      hint.style.display='none';
-
-      const iframe = card.querySelector('iframe');
-      iframe.src = iframe.src.replace('mute=1','mute=0');
-
-      setInterval(createHeart,500);
-      setInterval(createFirework,1200);
-    },{once:true});
+    overlay.addEventListener('click',()=>{
+      if(started) return; started=true;
+      card.classList.add('open'); hint.style.display='none';
+      const iframe=card.querySelector('iframe'); iframe.src=iframe.src.replace('mute=1','mute=0');
+      setInterval(heart,500); setInterval(firework,1200);
+    });
   </script>
 </body>
 </html>
