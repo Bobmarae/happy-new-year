@@ -17,7 +17,7 @@ overlay.addEventListener("click", () => {
     for (let i = 0; i < 2; i++) {
       const f = document.createElement("div");
       f.className = "flower";
-      f.textContent = Math.random() > 0.5 ? "🌸" : "🌼";
+      f.textContent = Math.random() > 0.5 ? "🌸" : "🌼": "❤️";
       f.style.left = Math.random() * 100 + "vw";
       flowers.appendChild(f);
       setTimeout(() => f.remove(), 7000);
