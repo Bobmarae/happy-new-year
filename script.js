@@ -12,23 +12,27 @@ overlay.addEventListener("click", () => {
   overlay.style.display = "none";
   audio.play();
 
-  // ดอกไม้ลอย
+  // ดอกไม้ถี่ขึ้น
   setInterval(() => {
-    const f = document.createElement("div");
-    f.className = "flower";
-    f.textContent = "🌸";
-    f.style.left = Math.random() * 100 + "vw";
-    flowers.appendChild(f);
-    setTimeout(() => f.remove(), 6000);
-  }, 400);
+    for (let i = 0; i < 2; i++) {
+      const f = document.createElement("div");
+      f.className = "flower";
+      f.textContent = Math.random() > 0.5 ? "🌸" : "🌼";
+      f.style.left = Math.random() * 100 + "vw";
+      flowers.appendChild(f);
+      setTimeout(() => f.remove(), 7000);
+    }
+  }, 300);
 
-  // พลุ
+  // พลุถี่ขึ้น
   setInterval(() => {
-    const fw = document.createElement("div");
-    fw.className = "firework";
-    fw.style.left = Math.random() * 100 + "vw";
-    fw.style.top = Math.random() * 50 + "vh";
-    fireworks.appendChild(fw);
-    setTimeout(() => fw.remove(), 1200);
-  }, 800);
+    for (let i = 0; i < 3; i++) {
+      const fw = document.createElement("div");
+      fw.className = "firework";
+      fw.style.left = Math.random() * 100 + "vw";
+      fw.style.top = Math.random() * 60 + "vh";
+      fireworks.appendChild(fw);
+      setTimeout(() => fw.remove(), 1300);
+    }
+  }, 700);
 });
