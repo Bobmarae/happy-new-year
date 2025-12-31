@@ -17,78 +17,129 @@
       text-align: center;
       overflow: hidden;
     }
-    .container {
-      cursor: pointer;
-    }
+
+    .container { cursor: pointer; }
+
     .hint {
       font-size: 1.2rem;
-      opacity: 0.9;
       animation: blink 1.5s infinite;
     }
     @keyframes blink {
       0%,100%{opacity:1}
       50%{opacity:0.4}
     }
+
+    /* bouquet */
     .bouquet {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto 20px;
       position: relative;
+      width: 220px;
+      height: 200px;
+      margin: auto;
     }
+
     .flower {
       position: absolute;
       width: 60px;
       height: 60px;
-      background: pink;
+      background: radial-gradient(circle, #fff 30%, #ff69b4 70%);
       border-radius: 50%;
-      top: 60px;
-      left: 60px;
       transform: scale(0);
-      transition: transform 1s ease;
+      transition: transform 0.8s ease;
     }
-    .open .flower {
-      transform: scale(1);
+
+    .flower:nth-child(1){ top:80px; left:80px; transition-delay:0.2s; }
+    .flower:nth-child(2){ top:40px; left:40px; transition-delay:0.5s; }
+    .flower:nth-child(3){ top:40px; left:120px; transition-delay:0.8s; }
+    .flower:nth-child(4){ top:0px; left:80px; transition-delay:1.1s; }
+
+    .open .flower { transform: scale(1); }
+
+    /* hearts */
+    .heart {
+      position: absolute;
+      color: #ff2f92;
+      font-size: 20px;
+      animation: floatUp 4s linear infinite;
     }
-    .images {
-      display: none;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 20px;
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity:1; }
+      to { transform: translateY(-120vh); opacity:0; }
     }
-    .images img {
-      max-width: 160px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      animation: fadeIn 1.5s ease forwards;
+
+    /* fireworks */
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: gold;
+      border-radius: 50%;
+      animation: explode 1.5s ease-out infinite;
     }
+    @keyframes explode {
+      0% { transform: scale(0); opacity:1; }
+      100% { transform: scale(6); opacity:0; }
+    }
+
+    /* message */
+    .message {
+      display:none;
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 1.1rem;
+      max-width: 320px;
+      margin: 20px auto;
+      line-height: 1.6;
+      animation: fadeIn 2s ease forwards;
+    }
+
     @keyframes fadeIn {
       from {opacity:0; transform: translateY(20px);} 
       to {opacity:1; transform: translateY(0);} 
     }
-    .open .images {
-      display: flex;
+
+    .images {
+      display:none;
+      gap:15px;
+      justify-content:center;
+      margin-top:20px;
+      flex-wrap:wrap;
     }
-    iframe {
-      display: none;
+
+    .images img{
+      max-width:160px;
+      border-radius:15px;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
     }
-    .open iframe {
-      display: block;
-      margin: 20px auto 0;
-      border-radius: 12px;
-    }
+
+    .open .images, .open .message { display:flex; }
+
+    iframe{ display:none; }
+    .open iframe{ display:block; margin:20px auto; border-radius:12px; }
   </style>
 </head>
 <body>
   <div class="container" id="card">
     <div class="bouquet">
       <div class="flower"></div>
+      <div class="flower"></div>
+      <div class="flower"></div>
+      <div class="flower"></div>
     </div>
+
     <div class="hint" id="hint">แตะหน้าจอ 🌸</div>
 
+    <div class="message">
+      Thank you for coming into my life.<br>
+      You are actually making me smile and laugh.<br>
+      Thank you for your understanding.<br>
+      Thank you for being my biggest supporter<br>
+      and thank you for caring about me.<br>
+      I really appreciate you so much.<br><br>
+      <b>I love you a lot ❤️</b>
+    </div>
+
     <div class="images">
-      <img src="1189a3d9-5100-481b-bc69-db8bc57ce9d9.png" alt="memory1" />
-      <img src="b031c462-e0e3-4711-aac2-60bb40bbaee6.png" alt="memory2" />
+      <img src="1189a3d9-5100-481b-bc69-db8bc57ce9d9.png">
+      <img src="b031c462-e0e3-4711-aac2-60bb40bbaee6.png">
     </div>
 
     <iframe width="300" height="170"
@@ -101,14 +152,36 @@
     const card = document.getElementById('card');
     const hint = document.getElementById('hint');
 
-    card.addEventListener('click', () => {
-      card.classList.add('open');
-      hint.style.display = 'none';
+    function createHeart(){
+      const h = document.createElement('div');
+      h.className='heart';
+      h.innerHTML='❤️';
+      h.style.left=Math.random()*100+'vw';
+      h.style.bottom='-20px';
+      h.style.fontSize=(16+Math.random()*20)+'px';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),4000);
+    }
 
-      // unmute after interaction
+    function createFirework(){
+      const f=document.createElement('div');
+      f.className='firework';
+      f.style.left=Math.random()*100+'vw';
+      f.style.top=Math.random()*60+'vh';
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),1500);
+    }
+
+    card.addEventListener('click',()=>{
+      card.classList.add('open');
+      hint.style.display='none';
+
       const iframe = card.querySelector('iframe');
-      iframe.src = iframe.src.replace('mute=1', 'mute=0');
-    });
+      iframe.src = iframe.src.replace('mute=1','mute=0');
+
+      setInterval(createHeart,500);
+      setInterval(createFirework,1200);
+    },{once:true});
   </script>
 </body>
 </html>
